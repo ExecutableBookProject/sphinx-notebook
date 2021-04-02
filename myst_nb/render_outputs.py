@@ -1,4 +1,4 @@
-"""A Sphinx post-transform, to convert notebook outpus to AST nodes."""
+"""A Sphinx post-transform, to convert notebook outputs to AST nodes."""
 from abc import ABC, abstractmethod
 import os
 from typing import List, Optional
@@ -72,7 +72,7 @@ class MystNbEntryPointError(SphinxError):
 
 def load_renderer(name) -> "CellOutputRendererBase":
     """Load a renderer,
-    given a name within the ``myst_nb.mime_render`` entry point group
+    given a name within the ``myst_nb.mime_render`` entry point group.
     """
     ep_list = set(ep for ep in entry_points()["myst_nb.mime_render"] if ep.name == name)
     if len(ep_list) == 1:
@@ -93,7 +93,7 @@ def load_renderer(name) -> "CellOutputRendererBase":
 
 
 class CellOutputsToNodes(SphinxPostTransform):
-    """Use the builder context to transform a CellOutputNode into Sphinx nodes."""
+    """Use the builder context to transform a :class:`~.nodes.CellOutputNode` into Sphinx nodes."""
 
     # process very early, before CitationReferenceTransform (5), ReferencesResolver (10)
     # https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_transform
@@ -150,7 +150,7 @@ class CellOutputRendererBase(ABC):
         self.sphinx_dir = sphinx_dir
 
     def cell_output_to_nodes(self, data_priority: List[str]) -> List[nodes.Node]:
-        """Convert a jupyter cell with outputs and filenames to doctree nodes.
+        """Convert a Jupyter cell with outputs and filenames to doctree nodes.
 
         :param outputs: a list of outputs from a Jupyter cell
         :param data_priority: media type by priority.
@@ -198,7 +198,7 @@ class CellOutputRendererBase(ABC):
 
     def make_warning(self, error_msg: str) -> nodes.system_message:
         """Raise an exception or generate a warning if appropriate,
-        and return a system_message node"""
+        and return a ``system_message`` node."""
         return self.document.reporter.warning(
             "output render: {}".format(error_msg),
             line=self.node.line,
@@ -206,7 +206,7 @@ class CellOutputRendererBase(ABC):
 
     def make_error(self, error_msg: str) -> nodes.system_message:
         """Raise an exception or generate a warning if appropriate,
-        and return a system_message node"""
+        and return a ``system_message`` node."""
         return self.document.reporter.error(
             "output render: {}".format(error_msg),
             line=self.node.line,
@@ -214,14 +214,14 @@ class CellOutputRendererBase(ABC):
 
     def make_severe(self, error_msg: str) -> nodes.system_message:
         """Raise an exception or generate a warning if appropriate,
-        and return a system_message node"""
+        and return a ``system_message`` node."""
         return self.document.reporter.severe(
             "output render: {}".format(error_msg),
             line=self.node.line,
         )
 
     def add_name(self, node: nodes.Node, name: str):
-        """Append name to node['names'].
+        """Append name to ``node['names']``.
 
         Also normalize the name string and register it as explicit target.
         """
@@ -490,7 +490,7 @@ def align(argument):
 
 
 class CellOutputRendererInline(CellOutputRenderer):
-    """Replaces literal/math blocks with non-block versions"""
+    """Replaces literal/math blocks with non-block versions."""
 
     def render_stderr(self, output: NotebookNode, index: int):
         """Output a container with an unhighlighted literal"""
