@@ -9,7 +9,7 @@ jupyter:
 ---
 
 (examples/custom_formats)=
-# Custom Notebook Formats
+# Text-based Notebook Formats
 
 You can designate additional file types to be converted to Notebooks, and then executed / parsed in the same manner as regular Notebooks, by adding the following configuration to your `conf.py`:
 
@@ -26,7 +26,7 @@ If the function takes additional keyword arguments, then you can specify these a
 For example this is what the default conversion would look like:
 
 ```python
-nbsphinx_custom_formats = {
+nb_custom_formats = {
     '.ipynb': ['nbformat.reads', {'as_version': 4}],
 }
 ```
@@ -38,7 +38,7 @@ By default, Markdown cells in the Notebook will be parsed using the same MyST pa
 But, if this is incompatible with your file format, then you can specify for the Markdown to be parsed as **strictly CommonMark**, using a third argument:
 
 ```python
-nbsphinx_custom_formats = {
+nb_custom_formats = {
     '.ipynb': ['nbformat.reads', {'as_version': 4}, True],
 }
 ```
